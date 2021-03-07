@@ -1,17 +1,17 @@
-# Задание 1
+# Exercise 1
 
-В этом задании мы реализуем некоторые методы машинного обучения, которые помогут нам с реализацией нейросетей в следующих заданиях.
+In this task, we will implement some machine learning methods that will help us with the implementation of neural networks in the following tasks.
 
-Перед выполнением задания:
-- Запустите файл `download_data.sh`, чтобы скачать данные, которые мы будем использовать для тренировки.
-- Установите все необходимые библиотеки, запустив `pip install -r requirements.txt` (если раньше не работали с pip, вам сюда - https://pip.pypa.io/en/stable/quickstart/).
+Before completing the assignment:
+- Run the file `download_data.sh` to download the data that we will use for training.
+- Install all the required libraries by running `pip install -r requirements.txt` (if you haven't worked with pip before, go here - https://pip.pypa.io/en/stable/quickstart/).
 
-## Часть 1
-Метод К-ближайших соседей (K-neariest neighbor classifier)
+## Part 1
+K-neariest neighbor classifier
 
-`KNN.ipynb` - следуйте инструкциям в ноутбуке.
+`KNN.ipynb` - follow the instructions in the laptop.
 
-## Часть 2
-Линейный классификатор (Linear classifier)
+## Part 2
+Linear classifier
 
-`Linear classifier.ipynb` - следуйте инструкциям в ноутбуке.
+`Linear classifier.ipynb` - follow the instructions in the laptop.

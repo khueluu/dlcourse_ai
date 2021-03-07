@@ -52,10 +52,14 @@ class KNN:
         num_train = self.train_X.shape[0]
         num_test = X.shape[0]
         dists = np.zeros((num_test, num_train), np.float32)
+
         for i_test in range(num_test):
             for i_train in range(num_train):
                 # TODO: Fill dists[i_test][i_train]
-                pass
+                distance = np.sum(np.abs(X[i_test]-self.train_X[i_train]))
+                dists[i_test][i_train] = distance
+        return dists
+                
 
     def compute_distances_one_loop(self, X):
         '''
@@ -75,7 +79,10 @@ class KNN:
         for i_test in range(num_test):
             # TODO: Fill the whole row of dists[i_test]
             # without additional loops or list comprehensions
-            pass
+            distance = np.abs(X[i_test]-self.train_X)
+            distance = distance.sum(axis=1).reshape(1,-1)
+            dists[i_test] = distance
+        return dists
 
     def compute_distances_no_loops(self, X):
         '''
@@ -91,10 +98,15 @@ class KNN:
         '''
         num_train = self.train_X.shape[0]
         num_test = X.shape[0]
+
         # Using float32 to to save memory - the default is float64
         dists = np.zeros((num_test, num_train), np.float32)
         # TODO: Implement computing all distances with no loops!
-        pass
+        m1 = np.reshape(X, (X.shape[0],1,X.shape[1]))
+        m2 = self.train_X
+        dists = np.sum(np.abs(m1 - m2), axis=2)
+        return dists
+
 
     def predict_labels_binary(self, dists):
         '''
@@ -113,7 +125,10 @@ class KNN:
         for i in range(num_test):
             # TODO: Implement choosing best class based on k
             # nearest training samples
-            pass
+            nn_ind = np.argsort(dists[i])[:self.k]
+            votes = self.train_y[nn_ind]
+            pred[i] = np.bincount(votes).argmax()
+            #print(nn_ind, votes, pred[i])
         return pred
 
     def predict_labels_multiclass(self, dists):
@@ -134,5 +149,9 @@ class KNN:
         for i in range(num_test):
             # TODO: Implement choosing best class based on k
             # nearest training samples
-            pass
+            nn_ind = np.argsort(dists[i])[:self.k]
+            votes = self.train_y[nn_ind]
+            (values, counts) = np.unique(votes, return_counts=True)
+            pred[i] = values[np.argmax(counts)]
+
         return pred

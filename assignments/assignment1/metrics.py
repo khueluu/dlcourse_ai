@@ -9,10 +9,26 @@ def binary_classification_metrics(prediction, ground_truth):
     Returns:
     precision, recall, f1, accuracy - classification metrics
     '''
-    precision = 0
-    recall = 0
-    accuracy = 0
-    f1 = 0
+    TP = 0
+    TN = 0
+    FP = 0
+    FN = 0
+    for y_pred, y_true in zip(prediction, ground_truth):
+        if y_pred == y_true:
+            if y_pred == True:
+                TP +=1
+            else:
+                TN +=1
+        else:
+            if y_pred == True:
+                FP +=1
+            else:
+                FN +=1    
+    # print(TP, TN, FP, FN)
+    precision = TP / (TP + FP)
+    recall = TP / (TP + FN)
+    accuracy = (TP + TN) / len(ground_truth)
+    f1 = (2 * precision * recall) / (precision + recall)
 
     # TODO: implement metrics!
     # Some helpful links:
@@ -34,4 +50,5 @@ def multiclass_accuracy(prediction, ground_truth):
     accuracy - ratio of accurate predictions to total samples
     '''
     # TODO: Implement computing accuracy
-    return 0
+    accuracy = sum(ground_truth == prediction)/prediction.shape[0]
+    return accuracy
